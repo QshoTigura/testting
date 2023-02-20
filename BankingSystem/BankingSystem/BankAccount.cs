@@ -6,8 +6,10 @@ using System.Threading.Tasks;
 
 namespace BankingSystem
 {
-  public  class BankAccount
+    public class BankAccount
     {
+        private decimal balance;
+
         public BankAccount(int id, decimal balance = 0)
         {
             this.Id = id;
@@ -15,7 +17,15 @@ namespace BankingSystem
         }
 
         public int Id { get; set; }
-        public decimal Balance { get; set; }
+        public decimal Balance {
+            get { return balance; }
+            set { 
+                if(value<0)
+                {
+                    throw new ArgumentException("+ ili 0");
+                }
+                this.balance = value; }
+        }
 
         public void Deposit(decimal amount)
         {
@@ -26,6 +36,6 @@ namespace BankingSystem
             this.Balance += amount;
         }
 
-        
+
     }
 }
