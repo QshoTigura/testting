@@ -98,8 +98,24 @@ namespace BankingSystem.Tests
 
             Assert.AreEqual(ex.Message, "Negative amount");
         }
+        [TestCase(123,500)]
+        [TestCase(123,1000)]
+        public void BalanceShouldIncreseBalanceWhenBalanceIsLessOrEqual1000(int id ,decimal balance)
+        {
+            BankAccount bankAccount = new BankAccount(id, balance);
+            bankAccount.Bonus();
+            Assert.AreEqual(balance, bankAccount.Balance);
+        }
+        [TestCase(123, 1100)]
+        [TestCase(123, 1999.9999)]
+        public void BalanceShouldIncreseBalanceWhenBalanceIsBetween1000And2000(int id, decimal balance)
+        {
+            BankAccount bankAccount = new BankAccount(id, balance);
+            var expectedResult = balance + 100;
+            bankAccount.Bonus();
+            Assert.AreEqual(expectedResult, bankAccount.Balance);
+        }
 
 
-        
     }
 }
